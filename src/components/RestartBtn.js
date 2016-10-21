@@ -21,13 +21,15 @@ class RestartBtn extends Component {
     const newState = {
       gameStart: false,
       questionCardShow: false,
-      resultCardShow: false
+      resultCardShow: false,
+      index: 0,
+      correctQuestionNum: 0
     }
     this.props.callback(newState);
   }
 
   render() {
-    const nodeClass=`restartBtn ${this.state.isShow}`
+    const nodeClass=`restartBtn ${this.state.isShow}`;
     return (
       <div className={nodeClass} onClick={this.reset} >
         <span className="restartIcon"></span>

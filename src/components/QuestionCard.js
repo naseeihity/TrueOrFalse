@@ -14,10 +14,6 @@ class QuestionCard extends Component {
     this.chooseAns = this.chooseAns.bind(this);
   }
 
-  componentDidMount() {
-
-  }
-
   componentWillReceiveProps (nextProps) {
     this.setState({
       visibility: nextProps.visibility ? 'show' : '',
@@ -26,10 +22,13 @@ class QuestionCard extends Component {
   }
 
   chooseAns(ans) {
+    const oldSorce = this.props.sorce;
     const isCorrect = this.state.question.value === ans ? true : false ;
+    const sorce = isCorrect ? oldSorce + 1 : oldSorce
     const newState={
       resultCardShow: true,
       questionCardShow: false,
+      correctQuestionNum: sorce,
       isCorrect
     };
     this.props.callback(newState);

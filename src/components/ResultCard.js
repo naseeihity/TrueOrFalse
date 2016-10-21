@@ -8,7 +8,9 @@ class ResultCard extends Component {
 
     this.state = {
       visibility: '',
-      text: ''
+      text: '',
+      btnText:'OK',
+      gameOver: false
     }
 
     this.confirmResult = this.confirmResult.bind(this);
@@ -22,6 +24,10 @@ class ResultCard extends Component {
   }
 
   confirmResult() {
+    if (this.state.gameOver) {
+      this.resetGame();
+      return true;
+    }
     if (!this.props.isCorrect || this.props.doneAll) {
       this.showSorce();
     } else if (this.props.isCorrect) {
@@ -30,7 +36,14 @@ class ResultCard extends Component {
   }
 
   showSorce() {
-
+    const sorce = this.props.sorce;
+    const Message = `你答对了${sorce}道题!`;
+    const sorceMessage = sorce !== 10 ? Message : Message + '你赢了!';
+    this.setState({
+      text: sorceMessage,
+      btnText: '再来一次',
+      gameOver: true
+    });
   }
 
   showNext() {
@@ -40,16 +53,32 @@ class ResultCard extends Component {
     this.props.callback(newState);
   }
 
+  resetGame(){
+    this.setState({
+      gameOver: false,
+      btnText: 'OK'
+    });
+    const newState = {
+      gameStart: false,
+      questionCardShow: false,
+      resultCardShow: false,
+      index: 0,
+      correctQuestionNum: 0
+    }
+    this.props.reset(newState);
+  }
+
   render() {
     const nodeClass = `card resultCardBox ${this.state.visibility}`;
     const text = this.state.text;
+    const btnText = this.state.btnText;
     return (
       <div className={nodeClass}>
         <p className="content answerContent">
           {text}
         </p>
         <div className="chooseBtn">
-          <button className="btn confirmBtn" onClick={this.confirmResult}>OK</button>
+          <button className="btn confirmBtn" onClick={this.confirmResult}>{btnText}</button>
         </div>
       </div>
     );
