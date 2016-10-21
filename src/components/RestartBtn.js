@@ -23,7 +23,8 @@ class RestartBtn extends Component {
       questionCardShow: false,
       resultCardShow: false,
       index: 0,
-      correctQuestionNum: 0
+      correctQuestionNum: 0,
+      doneAll: false
     }
     this.props.callback(newState);
   }
