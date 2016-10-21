@@ -20,7 +20,8 @@ class RestartBtn extends Component {
   reset(){
     const newState = {
       gameStart: false,
-      questionCardShow: false
+      questionCardShow: false,
+      resultCardShow: false
     }
     this.props.callback(newState);
   }

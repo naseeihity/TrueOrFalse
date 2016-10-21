@@ -190,6 +190,10 @@ html, body, .content {
 
 .resultCardBox {
   opacity: 1;
+  transition: all .8s ease;
+}
+.resultCardBox.show {
+  top: 200px;
 }
 
 .resultCardBox .answerContent {

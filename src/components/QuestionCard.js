@@ -7,8 +7,11 @@ class QuestionCard extends Component {
     this.visibility = props.visibility;
 
     this.state = {
-      visibility: ''
+      visibility: '',
+      question: props.question
     }
+
+    this.chooseAns = this.chooseAns.bind(this);
   }
 
   componentDidMount() {
@@ -17,20 +20,32 @@ class QuestionCard extends Component {
 
   componentWillReceiveProps (nextProps) {
     this.setState({
-      visibility: nextProps.visibility ? 'show' : ''
+      visibility: nextProps.visibility ? 'show' : '',
+      question: nextProps.question
     });
+  }
+
+  chooseAns(ans) {
+    const isCorrect = this.state.question.value === ans ? true : false ;
+    const newState={
+      resultCardShow: true,
+      questionCardShow: false,
+      isCorrect
+    };
+    this.props.callback(newState);
   }
 
   render() {
     const nodeClass = `card questionCardBox ${this.state.visibility}`;
+    const question = this.state.question.text;
     return (
       <div className={nodeClass} >
         <p className="content questionContent">
-          这是一个判断真假的问题.
+          {question}
         </p>
         <div className="chooseBtn">
-          <button className="btn trueBtn">真相</button>
-          <button className="btn falseBtn">谎言</button>
+          <button className="btn trueBtn" onClick={() => this.chooseAns(1)}>真相</button>
+          <button className="btn falseBtn" onClick={() => this.chooseAns(0)}>谎言</button>
         </div>
       </div>
     );

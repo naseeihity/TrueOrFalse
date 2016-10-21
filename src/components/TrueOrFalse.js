@@ -12,31 +12,73 @@ class TrueOrFalse extends Component {
     this.state = {
       gameStart: false,
       questionCardShow: false,
+      resultCardShow: false,
+      question: 'No question',
+      isCorrect: false,
+      doneAll: false,
+      index: 0
     }
     this.gameInit = this.gameInit.bind(this);
     this.reset = this.reset.bind(this);
+    this.showResult = this.showResult.bind(this);
+    this.showNextQuestion = this.showNextQuestion.bind(this);
+    this.updateState = this.updateState.bind(this);
   }
 
   gameInit() {
-    this.setState({
+    const allQuestions = this.props.question;
+    const selectedQuestions = allQuestions[0];
+    this.updateState({
       gameStart: true,
-      questionCardShow: true
+      questionCardShow: true,
+      question: selectedQuestions
     });
   }
 
   reset(newState) {
+    this.updateState(newState);
+  }
+
+  showResult(newState) {
+    this.updateState(newState);
+  }
+
+  showNextQuestion(newState) {
+    let _index = this.state.index + 1;
+    const allQuestions = this.props.question;
+    const selectedQuestions = allQuestions[_index];
+    const state = Object.assign({}, newState, {question:selectedQuestions,index:_index});
+    this.updateState(state);
+    setTimeout(() => {
+      this.updateState({
+        questionCardShow: true
+      })
+    },200);
+  }
+
+  updateState(newState) {
     this.setState(newState);
   }
 
   renderGameContent() {
-    const visibility = this.state.questionCardShow;
+    const questionShow = this.state.questionCardShow;
     const isShow = this.state.gameStart;
+    const resultShow = this.state.resultCardShow;
     return (
       <div>
-        <QuestionCard visibility={visibility} />
+        <QuestionCard
+          visibility={questionShow}
+          question={this.state.question}
+          callback={this.showResult}
+        />
         <Progress isShow={isShow} />
         <RestartBtn isShow={isShow} callback={this.reset} />
-        <ResultCard />
+        <ResultCard
+          visibility={resultShow}
+          isCorrect={this.state.isCorrect}
+          doneAll={this.state.doneAll}
+          callback={this.showNextQuestion}
+        />
       </div>
     );
   }
