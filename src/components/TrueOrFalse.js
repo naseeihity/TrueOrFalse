@@ -17,7 +17,8 @@ class TrueOrFalse extends Component {
       isCorrect: false,
       doneAll: false,
       index: 0,
-      correctQuestionNum: 0
+      correctQuestionNum: 0,
+      randomQuestions: []
     }
     this.gameInit = this.gameInit.bind(this);
     this.reset = this.reset.bind(this);
@@ -29,12 +30,44 @@ class TrueOrFalse extends Component {
 
   gameInit() {
     const allQuestions = this.props.question;
-    const selectedQuestions = allQuestions[0];
+    const randomQuestions = this.selectQuestion(allQuestions);
+    const question = randomQuestions[0];
     this.updateState({
       gameStart: true,
       questionCardShow: true,
-      question: selectedQuestions
+      randomQuestions: randomQuestions,
+      question: question
     });
+  }
+
+  selectQuestion(questions) {
+    const len = questions.length;
+    const idArr = this.getRandomNum(len);
+    let randomQuestions = [];
+    idArr.forEach((id) => {
+      randomQuestions.push(questions[id]);
+    });
+    return randomQuestions;
+  }
+
+  getRandomNum(len) {
+    const min = 0,
+          max = len - 1;
+    let arr = [];
+    while (arr.length < 10) {
+      const randomNum = Math.floor(Math.random() * (max - min + 1) + min);// 创建min-max间的随机数
+      let flag = false;
+      for(let i=0; i < arr.length; i++) {
+        if (arr[i] === randomNum) {
+          flag = true;
+          break;
+        }
+      }
+      if (!flag) {
+        arr[arr.length] = randomNum;
+      }
+    }
+    return arr;
   }
 
   reset(newState) {
@@ -50,7 +83,7 @@ class TrueOrFalse extends Component {
 
   showNextQuestion(newState) {
     let _index = this.state.index + 1;
-    const allQuestions = this.props.question;
+    const allQuestions = this.state.randomQuestions;
     const selectedQuestions = allQuestions[_index];
     const state = Object.assign({}, newState, {question:selectedQuestions,index:_index});
     this.updateState(state);
