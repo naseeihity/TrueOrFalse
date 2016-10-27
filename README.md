@@ -1,6 +1,6 @@
 # TrueOrFalse
 
-[](./img/demo.PNG)
+![](./img/demo.PNG)
 这是一个练习项目,帮助我更好地理解和使用React,游戏受Steam上的[TrueOrFalse](http://store.steampowered.com/app/521340/)游戏的启发,模仿其逻辑做了一个小练习.
 
 ## Play Online
