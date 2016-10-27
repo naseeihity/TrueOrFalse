@@ -50,7 +50,6 @@ class TrueOrFalse extends Component {
     const len = colors.length;
     const colorArr = this.getRandomNum(len, 1);
     const colorIndex = colorArr[0];
-    console.log(colorArr);
     return colors[colorIndex];
   }
 
