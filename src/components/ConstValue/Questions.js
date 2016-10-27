@@ -110,7 +110,6 @@ const Questions =
     text: '小章鱼出生时身材只有跳蚤那么大',
     value: 1
   }
-
 ];
 
 export default Questions;

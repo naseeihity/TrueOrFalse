@@ -18,7 +18,8 @@ class TrueOrFalse extends Component {
       doneAll: false,
       index: 0,
       correctQuestionNum: 0,
-      randomQuestions: []
+      randomQuestions: [],
+      backgroundColor: props.bgColor[0]
     }
     this.gameInit = this.gameInit.bind(this);
     this.reset = this.reset.bind(this);
@@ -29,20 +30,33 @@ class TrueOrFalse extends Component {
   }
 
   gameInit() {
-    const allQuestions = this.props.question;
+    const allQuestions = this.props.question,
+          allColors = this.props.bgColor;
     const randomQuestions = this.selectQuestion(allQuestions);
     const question = randomQuestions[0];
+
+    const bgColor = this.selectColor(allColors);
+
     this.updateState({
       gameStart: true,
       questionCardShow: true,
       randomQuestions: randomQuestions,
-      question: question
+      question: question,
+      backgroundColor: bgColor
     });
+  }
+
+  selectColor(colors) {
+    const len = colors.length;
+    const colorArr = this.getRandomNum(len, 1);
+    const colorIndex = colorArr[0];
+    console.log(colorArr);
+    return colors[colorIndex];
   }
 
   selectQuestion(questions) {
     const len = questions.length;
-    const idArr = this.getRandomNum(len);
+    const idArr = this.getRandomNum(len, 10);
     let randomQuestions = [];
     idArr.forEach((id) => {
       randomQuestions.push(questions[id]);
@@ -50,11 +64,11 @@ class TrueOrFalse extends Component {
     return randomQuestions;
   }
 
-  getRandomNum(len) {
+  getRandomNum(len, num) {
     const min = 0,
           max = len - 1;
     let arr = [];
-    while (arr.length < 10) {
+    while (arr.length < num) {
       const randomNum = Math.floor(Math.random() * (max - min + 1) + min);// 创建min-max间的随机数
       let flag = false;
       for(let i=0; i < arr.length; i++) {
@@ -71,7 +85,8 @@ class TrueOrFalse extends Component {
   }
 
   reset(newState) {
-    this.updateState(newState);
+    const state = Object.assign({}, newState, {backgroundColor: this.props.bgColor[0]});
+    this.updateState(state);
   }
 
   showResult(newState) {
@@ -137,11 +152,14 @@ class TrueOrFalse extends Component {
 
   render() {
     const gameStart = this.state.gameStart;
+    const bgStyle = {
+      background: this.state.backgroundColor
+    }
     const startBtnStyle = {
       display: gameStart ? 'none' : 'block'
-    }
+    };
     return (
-      <div className="appContent">
+      <div className="appContent" style={bgStyle}>
         <button
           className="btn startBtn"
           style={startBtnStyle}
