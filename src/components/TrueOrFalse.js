@@ -108,10 +108,6 @@ class TrueOrFalse extends Component {
     },200);
   }
 
-  getSorce(newState) {
-    this.updateState(newState);
-  }
-
   updateState(newState) {
     this.setState(newState);
   }
@@ -131,7 +127,6 @@ class TrueOrFalse extends Component {
         <Progress
           isShow={isShow}
           question={this.state.question.id}
-          callback={this.getSorce}
         />
         <RestartBtn
           isShow={isShow}

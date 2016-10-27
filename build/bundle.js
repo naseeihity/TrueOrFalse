@@ -21573,7 +21573,6 @@
 	      var len = colors.length;
 	      var colorArr = this.getRandomNum(len, 1);
 	      var colorIndex = colorArr[0];
-	      console.log(colorArr);
 	      return colors[colorIndex];
 	    }
 	  }, {
@@ -22268,7 +22267,7 @@
 	  value: 1
 	}, {
 	  id: 15,
-	  text: '除人以外,麋鹿是唯一会庆祝生日的动物',
+	  text: '中國內地習慣把6月的第2個星期天作為父親節',
 	  value: 0
 	}, {
 	  id: 16,
