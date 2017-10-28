@@ -5,6 +5,6 @@
 
 ## Play Online
 
-[Click here!](http://rssme.top/TrueOrFalse)
+[Click here!](http://drgao.xyz/TrueOrFalse/)
 
 如果你喜欢,可以在Steam找到他,是完全免费的哦,其中有更多有意思的题目.
